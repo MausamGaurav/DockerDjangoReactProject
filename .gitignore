@@ -1,0 +1,9 @@
+### Django ###
+**/env/*
+**/localPythonEnv/*
+/.vscode
+.vscode
+*.log
+*.pot
+*.pyc
+__pycache__/

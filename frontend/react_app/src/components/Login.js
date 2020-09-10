@@ -13,6 +13,8 @@ import Container from '@material-ui/core/Container';
 import { connect } from 'react-redux';
 import * as actions from '../store/authActions';
 
+import { useHistory, useLocation } from "react-router-dom";
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,11 +41,20 @@ function Login(props) {
   const [username, setuserName] = React.useState(null);
   const [password, setPassword] = React.useState(null);
 
+  let history = useHistory();
+  let location = useLocation();
+  let { from } = location.state || { from: { pathname: "/" } };
+
+  React.useEffect(() => {
+    if (props.isAuthenticated) { history.replace(from) };
+  });
+
+
   const handleFormFieldChange = (event) => {
     switch (event.target.id) {
       case 'username': setuserName(event.target.value); break;
       case 'password': setPassword(event.target.value); break;
-      default: console.log({ username, password });
+      default: return null;
     }
 
   };
@@ -103,17 +114,11 @@ function Login(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-      loading: state.auth.loading,
-      error: state.auth.error
-  }
-}
 
 const mapDispatchToProps = dispatch => {
   return {
-      onAuth: (username, password) => dispatch(actions.authLogin(username, password)) 
+    onAuth: (username, password) => dispatch(actions.authLogin(username, password))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);

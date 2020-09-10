@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ButtonAppBar() {
+export default function TopBar(props) {
   const classes = useStyles();
 
   return (
@@ -27,7 +27,7 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             Iris Species Predictor
           </Typography>
-          <Button color="inherit">Login</Button>
+          {props.isAuthenticated ? <Button color="inherit" onClick={()=>props.logout()}>Logout</Button> : null}
         </Toolbar>
       </AppBar>
     </div>

@@ -4,8 +4,7 @@ import * as settings from '../settings';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
-import { Container, Grid, Paper, Typography, Slider, Tooltip, Button } from '@material-ui/core';
+import { Container, Grid, Paper, Typography, Slider, Button } from '@material-ui/core';
 
 // ########################################################
 // Material UI inline styles
@@ -29,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: theme.spacing(2),
         paddingLeft: theme.spacing(4),
         paddingRight: theme.spacing(4),
+        marginBottom: theme.spacing(2),
     },
     slidertop: {
         marginTop: theme.spacing(4),
@@ -62,7 +62,7 @@ const IrisSlider = withStyles({
 })(Slider);
 
 // Marks on the slider track
-const marks = [{ value: 0 }, { value: 5 }, { value: 10 }];
+const marks = [{ value: 0 }, { value: 10 }];
 
 // ########################################################
 // The main Home component returned by this Module
@@ -94,22 +94,23 @@ function Home(props) {
     // Function to make the predict API call and update the state variable - Prediction 
     const handlePredict = event => {
         // Submit Iris Flower measured dimensions as form data
-        var myFormData = new FormData();
-        myFormData.append("sepal length (cm)", dimensions.sepal_length);
-        myFormData.append("sepal width (cm)", dimensions.sepal_width);
-        myFormData.append("petal length (cm)", dimensions.petal_length);
-        myFormData.append("petal width (cm)", dimensions.petal_width);
+        let irisFormData = new FormData();
+        irisFormData.append("sepal length (cm)", dimensions.sepal_length);
+        irisFormData.append("sepal width (cm)", dimensions.sepal_width);
+        irisFormData.append("petal length (cm)", dimensions.petal_length);
+        irisFormData.append("petal width (cm)", dimensions.petal_width);
 
         //Axios variables required to call the predict API
-        const headers = { 'Authorization': `Token ${props.token}` };
+        let headers = { 'Authorization': `Token ${props.token}` };
         let url = settings.API_SERVER + '/api/predict/';
         let method = 'post';
-        let config = { headers, method, url, data: myFormData };
+        let config = { headers, method, url, data: irisFormData };
 
         //Axios predict API call
-        axios(config).
-            then(res => { setPrediction(res.data["Prediced Iris Species"]) }).
-            catch(error => { alert(error) })
+        axios(config).then(
+            res => {setPrediction(res.data["Prediced Iris Species"])
+            }).catch(
+                error => {alert(error)})
 
     }
 
@@ -199,7 +200,7 @@ function Home(props) {
                     <Grid item xs={4}>
                         <Paper className={classes.title} elevation={0}>
                             <Typography variant="caption" display="inline">
-                                Predicted Iris species: <span>&nbsp;</span>
+                                Predicted Iris Species: <span>&nbsp;</span>
                             </Typography>
                             <Typography variant="body1" display="inline">
                                 {prediction}

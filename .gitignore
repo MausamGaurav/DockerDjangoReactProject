@@ -13,7 +13,7 @@ __pycache__/
 #db.sqlite3
 #/media/uploads
 #/media/profile_pics
-**/files_static/*
+**/static/*
 #/media/article_pics/articles
 
 ### Node and React ###

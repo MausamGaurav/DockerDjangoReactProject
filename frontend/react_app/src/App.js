@@ -21,7 +21,7 @@ function App(props) {
   );
 }
 
-//This means that one or more of the redux actions in the form of dispatch(action) combinations are available as props
+//This means that one or more of the redux states in the store are available as props
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token !== null && typeof state.auth.token !== 'undefined',
@@ -29,7 +29,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-//This means that one or more of the redux dispatch actions are available as props
+//This means that one or more of the redux actions in the form of dispatch(action) combinations are available as props
 const mapDispatchToProps = (dispatch) => {
   return {
     setAuthenticatedIfRequired: () => dispatch(actions.authCheckState()),

@@ -108,7 +108,7 @@ function Home(props) {
 
         //Axios predict API call
         axios(config).then(
-            res => {setPrediction(res.data["Prediced Iris Species"])
+            res => {setPrediction(res.data["Predicted Iris Species"])
             }).catch(
                 error => {alert(error)})
 
